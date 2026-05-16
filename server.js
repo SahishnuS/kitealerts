@@ -63,17 +63,6 @@ app.get("/login", async (req, res) => {
 
     try {
 
-        if (!monitoringStarted) {
-
-            checkHoldings();
-
-            setInterval(
-                checkHoldings,
-                3 * 60 * 1000
-            );
-
-            monitoringStarted = true;
-        }
         const requestToken = req.query.request_token;
 
         if (!requestToken) {
@@ -89,27 +78,29 @@ app.get("/login", async (req, res) => {
                 apiSecret
             );
 
-        const accessToken = response.access_token;
+        const accessToken =
+            response.access_token;
 
         kite.setAccessToken(accessToken);
 
         console.log("ACCESS TOKEN SET");
 
-        checkHoldings();
 
-        setInterval(
-            checkHoldings,
-            3 * 60 * 1000
-        );
 
-        console.log("\n========================");
-        console.log("ACCESS TOKEN GENERATED");
-        console.log("========================");
-        console.log(accessToken);
-        console.log("========================\n");
+        // START ONLY AFTER LOGIN
+        if (!monitoringStarted) {
 
-        // START CHECKING AFTER LOGIN
-        checkHoldings();
+            checkHoldings();
+
+            setInterval(
+                checkHoldings,
+                3 * 60 * 1000
+            );
+
+            monitoringStarted = true;
+        }
+
+
 
         res.send(`
             <h2>Login Successful ✅</h2>
@@ -238,7 +229,7 @@ async function checkHoldings() {
             // -----------------------------------
             if (
 
-                profitPercentage >= 5 &&
+                profitPercentage >= 8 &&
 
                 stock.quantity > 0 &&
 

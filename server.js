@@ -95,13 +95,6 @@ app.get("/login", async (req, res) => {
 
         console.log("ACCESS TOKEN SET");
 
-        checkHoldings();
-
-        setInterval(
-            checkHoldings,
-            3 * 60 * 1000
-        );
-
         console.log("\n========================");
         console.log("ACCESS TOKEN GENERATED");
         console.log("========================");

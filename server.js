@@ -229,7 +229,7 @@ async function checkHoldings() {
             // -----------------------------------
             if (
 
-                profitPercentage >= 8 &&
+                profitPercentage >= 5 &&
 
                 stock.quantity > 0 &&
 
